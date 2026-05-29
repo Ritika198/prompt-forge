@@ -1,34 +1,49 @@
-# Prompt Forge
+# Prompt Forge — AI Prompt Version Control System
 
-AI Prompt Version Control System built for IntellifyAI Assignment D.
+Prompt Forge is a Prompt Version Control System built for the IntellifyAI Engineering Assessment.
 
-## Features
+It treats prompts like production code by supporting:
 
-* Prompt creation and management
-* Immutable prompt versioning
-* Production promotion workflow
-* Rollback system
-* Golden dataset testing
-* Evaluation pipeline
-* Regression detection
-* Prompt version comparison
+- Prompt creation
+- Immutable version history
+- Golden dataset evaluation
+- Regression detection
+- Rollback workflow
+- Production prompt execution
+
+---
 
 ## Tech Stack
 
-* Node.js
-* Fastify
-* TypeScript
-* Prisma ORM
-* SQLite
+Backend:
+- Node.js
+- Fastify
+- TypeScript
+- Prisma
+- SQLite
 
-## Architecture
+---
 
-The system treats prompts like production code.
+## Features
 
-Each prompt can have multiple immutable versions.
-Versions can be evaluated against golden datasets before promotion to production.
+### Prompt Management
+- Create prompts
+- Create prompt versions
+- Preserve immutable history
+- Compare prompt versions
 
-The evaluation system tests prompt quality and detects regressions before deployment.
+### Golden Dataset Evaluation
+- Add test cases
+- Evaluate prompt versions
+- Score outputs
+- Detect regressions
+
+### Promotion Workflow
+- Promote production versions
+- Rollback instantly
+- Execute production prompt
+
+---
 
 ## API Endpoints
 
@@ -36,17 +51,9 @@ The evaluation system tests prompt quality and detects regressions before deploy
 
 POST /prompts
 
-### Create Prompt Version
+### Create Version
 
 POST /prompts/:id/versions
-
-### Promote Version
-
-POST /versions/:versionId/promote
-
-### Rollback Version
-
-POST /versions/:versionId/rollback
 
 ### Add Test Case
 
@@ -54,49 +61,45 @@ POST /prompts/:id/testcases
 
 ### Evaluate Version
 
-POST /prompts/:promptId/versions/:versionNumber/evaluate
+POST /prompts/:id/versions/:version/evaluate
 
-### Compare Versions
+### Run Prompt
 
-GET /prompts/:promptId/diff/:v1/:v2
+POST /prompts/:name/run
 
-## Evaluation Logic
+### Rollback
 
-Prompt versions are evaluated using golden test datasets.
+POST /versions/:id/rollback
 
-Each test case contains:
+---
 
-* input
-* expected rubric
-
-The evaluation pipeline generates output and scores whether the expected behavior is satisfied.
-
-## Regression Detection
-
-If a new version scores below threshold compared to production, the system flags regressionDetected = true.
-
-## Setup
+## Run Locally
 
 Install dependencies:
 
+```bash
 npm install
+```
 
 Run server:
 
+```bash
 npm run dev
+```
+
+Server:
+
+```txt
+http://localhost:3000
+```
+
+---
 
 ## Reflection
 
-LLM-as-judge systems may give false confidence when:
+LLM-as-judge systems may produce false confidence when:
 
-* evaluation rubrics are vague
-* prompts exploit judge wording
-* semantic correctness is difficult to measure
-
-Future improvements:
-
-* real OpenAI integration
-* async evaluations
-* frontend dashboard
-* semantic diffing
-* automated scoring using judge LLM
+- evaluation rubrics are ambiguous
+- prompts require subjective creativity
+- scoring instructions are underspecified
+- model hallucinations affect grading
